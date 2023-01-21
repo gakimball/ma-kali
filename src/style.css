@@ -1,0 +1,249 @@
+* {
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  box-sizing: border-box;
+}
+
+html {
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    'Roboto',
+    'Helvetica',
+    'Arial',
+    sans-serif,
+    'Apple Color Emoji',
+    'Segoe UI Emoji';
+}
+
+body {
+  height: 100vh;
+  padding: 12px;
+}
+
+.text-default,
+.text-title {
+  margin-bottom: 6px;
+}
+
+.text-default {
+  font-size: 16px;
+}
+
+.text-title {
+  font-size: 24px;
+}
+
+.header {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  border-bottom: 2px solid #ccc;
+}
+
+.title {
+  font-size: 32px;
+}
+
+.title-ma {
+  position: relative;
+  top: 3px;
+}
+
+.county-name:not(:empty) {
+  border: 2px solid currentColor;
+  height: 45px;
+  line-height: 42px;
+  font-size: 22px;
+  padding: 0 16px;
+  border-radius: 8px;
+}
+
+.county-name-selected {
+  color: #D76868;
+}
+
+.county-name-hover {
+  color: #999;
+}
+
+.flex-spacer {
+  flex: 1;
+}
+
+.container {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+}
+
+.map {
+  width: 50%;
+}
+
+.notes {
+  width: 50%;
+}
+
+.notes-inner {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 10px;
+  height: 670px;
+}
+
+.label-icon {
+  display: inline-block;
+  position: relative;
+  top: 5px;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+.iframe,
+.textarea {
+  width: 100%;
+  border: 2px solid #333;
+  border-radius: 8px;
+}
+
+.iframe {
+  flex: 1;
+}
+
+.iframe-placeholder {
+  text-align: center;
+  color: #999;
+}
+
+.textarea {
+  padding: 12px;
+  height: 50px;
+  font-size: 16px;
+  line-height: 24px;
+  transition: height 150ms ease;
+}
+
+.textarea-expanded {
+  height: 300px;
+}
+
+.textarea-close {
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  appearance: none;
+  font-size: 16px;
+  color: #999;
+  font-weight: bold;
+  background-color: transparent;
+  border: 0;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.textarea-close:hover {
+  color: #000;
+}
+
+.county:hover,
+.county.selected {
+  fill: #D76868 !important;
+  cursor: pointer;
+}
+
+.map path:not(.county) {
+  pointer-events: none;
+}
+
+.button {
+  position: relative;
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid #333;
+  height: 45px;
+  font-size: 22px;
+  padding: 0 16px;
+  border-radius: 8px;
+  color: #000;
+  cursor: pointer;
+}
+
+.button:disabled {
+  pointer-events: none;
+}
+
+.button:hover {
+  top: 2px;
+}
+
+.button-label {
+  display: inline-block;
+  width: 12px;
+  aspect-ratio: 1;
+  border-radius: 3px;
+  margin-right: 6px;
+  position: relative;
+  top: -1px;
+  background-color: var(--button-label-color);
+}
+
+.button-active {
+  border-color: var(--button-label-color);
+}
+
+.file-upload {
+  display: none;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 350px;
+  padding: 12px;
+  transform: translate(-50%, -50%);
+  border: 2px solid #333;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.input {
+  height: 40px;
+  line-height: 40px;
+  border: 2px solid #333;
+  border-radius: 4px;
+  width: 100%;
+  padding: 0 6px;
+  font-size: 16px;
+}
+
+.input + .input {
+  margin-top: 6px;
+}
+
+.instructions {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  height: 600px;
+  width: 50%;
+}
+
+.county-list {
+  clear: both;
+  overflow: hidden;
+  list-style-position: inside;
+}
+
+.county-list-item {
+  font-size: 16px;
+  width: 50%;
+  float: left;
+  line-height: 24px;
+}

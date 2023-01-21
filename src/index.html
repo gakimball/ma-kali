@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ma Kali</title>
+  <link rel="stylesheet" href="./style.css">
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+  <a download="ma-kali.json" data-download-link></a>
+  <div class="header" x-data>
+    <h1 class="title">
+      <img class="title-ma" src="./ma.svg" alt="ma">
+      Kali
+    </h1>
+    <p class="county-name" x-bind="CountyTitle"></p>
+    <div class="flex-spacer"></div>
+    <p x-data x-text="`${$store.ui.visitedCount}/${$store.ui.countiesCount} visited`"></p>
+    <button class="button" data-import @click="$refs.import.click()">
+      Import
+    </button>
+    <button class="button" @click="$store.ui.download()">
+      Export
+    </button>
+    <button class="button" @click="$store.ui.toggleShare()">
+      Share
+    </button>
+    <input class="file-upload" x-ref="import" type="file" accept=".json" @change="$store.ui.upload($event)">
+  </div>
+  <div class="container">
+    <div class="map"></div>
+    <div class="notes">
+      <template x-data x-if="$store.ui.shareModeOn">
+        <div>
+          <p class="text-title">
+            <span x-text="$store.ui.shareName"></span>
+            has been to
+            <span x-text="$store.ui.visitedCount"></span>
+            of
+            <span x-text="$store.ui.countiesCount"></span>
+            California counties:
+          </p>
+          <ul class="county-list">
+            <template x-for="county in Object.keys($store.ui.userData).sort()" :key="county">
+              <template x-if="$store.ui.userData[county].label === 'Visited'">
+                <li class="county-list-item" x-text="county"></li>
+              </template>
+            </template>
+          </ul>
+          <br>
+          <p class="text-title">
+            Now make yr own map:
+          </p>
+          <button class="button" @click="window.location.href = window.location.pathname">
+            Take me there
+          </button>
+        </div>
+      </template>
+      <template x-data="{ notesExpanded: false }" x-if="!$store.ui.shareModeOn">
+        <div class="notes-inner">
+          <div :style="{ opacity: $store.ui.county === null ? 0.25 : 1 }">
+            <img class="label-icon" src="./label.svg" alt="Label">
+            <button class="button" x-data="{ label: 'Visited' }" x-bind="LabelButton"></button>
+            <button class="button" x-data="{ label: 'Driven through' }" x-bind="LabelButton"></button>
+            <button class="button" x-data="{ label: 'To visit' }" x-bind="LabelButton"></button>
+          </div>
+          <iframe x-bind="WikipediaViewer"></iframe>
+          <template x-data x-if="$store.ui.county !== null">
+            <div style="position: relative;">
+              <textarea
+                class="textarea"
+                :class="{ 'textarea-expanded': notesExpanded }"
+                placeholder="Notes"
+                x-model="$store.ui.userData[$store.ui.county].notes"
+                @focus="notesExpanded = true"
+              ></textarea>
+              <button
+                class="textarea-close"
+                x-show="notesExpanded"
+                @click="notesExpanded = false"
+              >
+                &times;
+              </button>
+            </div>
+          </template>
+        </div>
+      </template>
+    </div>
+  </div>
+  <template x-data x-if="$store.ui.shareDialogVisible">
+    <div class="modal">
+      <p class="text-title">Share it</p>
+      <p class="text-default">Enter yr name</p>
+      <input type="text" class="input" x-model="$store.ui.shareName">
+      <input
+        x-data
+        type="text"
+        class="input"
+        :value="$store.ui.shareURL"
+        x-ref="shareURL"
+        @click="$refs.shareURL.select()"
+        readonly
+      >
+      <br /><br />
+      <button class="button" @click="$store.ui.toggleShare()">
+        Close
+      </button>
+    </div>
+  </template>
+  <script src="./script.js"></script>
+</body>
+</html>
